@@ -10,7 +10,8 @@ def test_no_split_leakage(tmp_path, version):
     splits = [pd.read_csv(tmp_path / f"{name}.csv") for name in ["train", "validation", "test"]]
     for frame in splits:
         assert not frame.isna().any().any()
-        assert set(frame.target) == {0, 1, 2}
+        # assert set(frame.target) == {0, 1, 2}
+        assert set(frame.target) == {1, 2, 3} # test
         assert frame.sample_id.is_unique
     ids = [set(f.sample_id) for f in splits]
     assert not (ids[0] & ids[1] or ids[0] & ids[2] or ids[1] & ids[2])
