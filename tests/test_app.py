@@ -20,6 +20,7 @@ def test_prediction_contract(client, values):
     assert response.status_code == 200
     body = response.json()
     assert body["cultivar"] in [1, 2, 3]
+    # assert body["cultivar"] in [0, 1, 2] # test
     assert len(body["probabilities"]) == 3
     assert all(0 <= p <= 1 for p in body["probabilities"])
     assert sum(body["probabilities"]) == pytest.approx(1)
